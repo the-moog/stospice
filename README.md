@@ -65,7 +65,7 @@ optional arguments:
 
 This tool is based off the following work:
 
-1. The code from s2spice.cpp from [qucs_s](https://github.com/ra3xdh/qucs_s/blob/current/qucs/extsimkernels/s2spice.cpp).
+1. The code s2spice.cpp from [Qucs-S](https://github.com/ra3xdh/qucs_s/blob/current/qucs/extsimkernels/s2spice.cpp).
 2. The article, "Create S-Parameter Subcircuits for Microwave and RF Applications" by John S. Gerig, Wideband Associates.   This article also included QBASIC code for generating the subcircuit.
 
 The original article by Gerig uses the "E" voltage controlled voltage source, using
