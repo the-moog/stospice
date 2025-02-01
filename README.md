@@ -6,7 +6,6 @@ Python library to convert s-sparameters into a spice subcircuit.
 ### Library
 
 The library is named stospice and consists of one function called stospice.
-
 The signature of the function is as follows:
 
 ```
