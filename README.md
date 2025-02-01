@@ -68,5 +68,6 @@ While the code from qucs\_s, uses instead the
 "A" predefined device and its tabular argument.  This library uses the latter "A" device.
 
 The library also supports S-matrices with one or more ports (up to 98) using the logic from s2spice.cpp.
-The original article only supported 2.   
+The original article only supported 2, while s2spice.cpp only supports up to 8 ports.  I increased the number
+of ports supported in case one wanted to perform port tuning which requires a lot of ports.
 
