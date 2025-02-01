@@ -22,9 +22,7 @@ stospice(
 
 You can run the library also as a standalone script.  The tool takes
 a s-parameter touchstone file as input and generates a 'inc' 
-subcircuit file from it.
-
-The tool's usage is as follows:
+subcircuit file from it.  The tool's command line usage is as follows:
 
 ```
 usage: stospice.py [-h] filename
@@ -42,12 +40,9 @@ Usage of the tool requires the installation of the scikit-rf python library.
 
 You can also test the library using the test\_stospice.py script.
 It takes a touchstone file as its argument and will then validate against
-it using ngspice.
-
-If no touchstone file is passed to the script, it just generates a random N-port s-parameter
-matrix that it then validates itself against.
-
-The test script's usage is as follows:
+it using ngspice.  If no touchstone file is passed to the script, it just generates a random N-port s-parameter
+matrix that it then validates itself against.  The test can also be run via unittest: "python -m unittest".
+The test script's command line usage is as follows:
 
 ```
 usage: test_stospice.py [-h] [--ports PORTS] [filename]
