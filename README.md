@@ -69,8 +69,10 @@ This tool is based off the following work:
 2. The article, "Create S-Parameter Subcircuits for Microwave and RF Applications" by John S. Gerig, Wideband Associates.   This article also included QBASIC code for generating the subcircuit.
 
 The original article by Gerig uses the "E" voltage controlled voltage source, using
-an undocumented tabular argument.  s2spice.cpp from qucs\_s uses instead the
-"A" predefined device and its tabular argument.  This library uses the latter device.
+an undocumented tabular argument.  
+The code from https://github.com/transmitterdan/s2spice uses a "G" device.
+While the code from qucs\_s (located in s2spice.cpp), uses instead the
+"A" predefined device and its tabular argument.  This library uses the latter "A" device.
 
 The library also supports S-matrices with one or more ports (up to 98) using the logic from s2spice.cpp.
 The original article only supported 2.   

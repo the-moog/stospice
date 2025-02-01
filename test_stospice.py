@@ -2,6 +2,7 @@
 import sys
 import os
 import tempfile
+import unittest
 import subprocess
 import numpy as np
 from stospice import stospice
@@ -16,6 +17,8 @@ def run_ngspice(text):
     proc.wait()
     result = proc.stdout.read().decode().rstrip()
     error = proc.stderr.read().decode().rstrip()
+    proc.stdout.close()
+    proc.stderr.close()
     os.unlink(name)
     return result, error
 
@@ -84,7 +87,35 @@ def analyze(filename, name, f, z0, individual=False):
         res = sparameters(filename, name, nports, f, z0)
     return res
 
+
+def test_random_smatrix(nports=None):
+    nports = nports or np.random.randint(1, 10)
+    points = 4
+    shape = (points, nports, nports)
+    s = np.random.rand(*shape) + 1j * np.random.rand(*shape)
+    s = 10 * s
+    f = np.linspace(1e6, 100e6, points)
+    z0 = 100 * abs(np.random.rand(nports))
+    print(f'simulating a {points} point {nports}x{nports} sparameter matrix')
+    print('z0 =', z0)
+    name = tempfile.mktemp(dir='')
+    incfile = f'{name}.inc'
+    stospice(incfile, name, f, s, z0)
+    res = analyze(incfile, name, f, z0)
+    os.unlink(incfile)
+    error = (res - s) * np.logical_not(np.isclose(res, s))
+    print('error difference =')
+    print(error)
+    return error
+ 
+ 
 ###
+
+class TestStospice(unittest.TestCase):
+    def test_stospice(self):
+        error = test_random_smatrix()
+        self.assertTrue(np.all(error == 0))
+
 
 if __name__ == '__main__':
     import skrf
@@ -103,25 +134,11 @@ if __name__ == '__main__':
         stospice(incfile, name, nw.f, s, z0)
         res = analyze(incfile, name, nw.f, z0, individual=True)
         os.unlink(incfile)
+        error = (res - s) * np.logical_not(np.isclose(res, s))
+        print('error difference =')
+        print(error)
     else:
-        nports = args.ports or np.random.randint(1, 10)
-        points = 4
-        shape = (points, nports, nports)
-        s = np.random.rand(*shape) + 1j * np.random.rand(*shape)
-        s = 10 * s
-        f = np.linspace(1e6, 100e6, points)
-        z0 = 100 * abs(np.random.rand(nports))
-        name = 'text'
-        incfile = f'{name}.inc'
-        print(f'simulating a {points} point {nports}x{nports} sparameter matrix')
-        stospice(incfile, name, f, s, z0)
-        res = analyze(incfile, name, f, z0)
-        os.unlink(incfile)
-
-    print('z0 =', z0)
-    print('error difference =')
-    print((res - s) * np.logical_not(np.isclose(res, s)))
-
-    
+        error = test_random_smatrix(args.ports)
 
 
+   
