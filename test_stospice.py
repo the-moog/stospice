@@ -104,8 +104,6 @@ def test_random_smatrix(nports=None):
     res = analyze(incfile, name, f, z0)
     os.unlink(incfile)
     error = (res - s) * np.logical_not(np.isclose(res, s))
-    print('error difference =')
-    print(error)
     return error
  
  
@@ -135,10 +133,11 @@ if __name__ == '__main__':
         res = analyze(incfile, name, nw.f, z0, individual=True)
         os.unlink(incfile)
         error = (res - s) * np.logical_not(np.isclose(res, s))
-        print('error difference =')
-        print(error)
     else:
         error = test_random_smatrix(args.ports)
+    print('error difference =')
+    print(error)
+    print('PASS' if np.all(error == 0) else 'FAIL')
 
 
    
