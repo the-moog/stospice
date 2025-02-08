@@ -111,8 +111,9 @@ def test_random_smatrix(nports=None):
 
 class TestStospice(unittest.TestCase):
     def test_stospice(self):
-        error = test_random_smatrix()
-        self.assertTrue(np.all(error == 0))
+        for nports in range(1, 12):
+            error = test_random_smatrix(nports)
+            self.assertTrue(np.all(error == 0))
 
 
 if __name__ == '__main__':
