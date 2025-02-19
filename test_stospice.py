@@ -138,7 +138,9 @@ if __name__ == '__main__':
         error = test_random_smatrix(args.ports)
     print('error difference =')
     print(error)
-    print('PASS' if np.all(error == 0) else 'FAIL')
+    success = np.all(error == 0)
+    print('PASS' if success else 'FAIL')
+    sys.exit(0 if success else 1)
 
 
    
