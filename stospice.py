@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 def stospice(filename, name, f, s, z0):
     dim = 100
